@@ -30,5 +30,3 @@ const InputView = {
 };
 
 module.exports = InputView;
-
-InputView.readBridgeSize(console.log);
