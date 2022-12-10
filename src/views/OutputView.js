@@ -13,18 +13,20 @@ const OutputView = {
     const downMap = this.makeDownMap(map);
 
     Console.print(`[${upMap.join("|")}]`);
-    Console.print(`[${downMap.join("|")}]`);
+    Console.print(`[${downMap.join("|")}]\n`);
   },
 
   printWrongMap(map) {
-    const [upMap, downMap] = this.makeWrongMap(
-      map[map.length - 1],
-      this.makeUpMap(map),
-      this.makeDownMap(map)
-    );
+    const [upMap, downMap] = [this.makeUpMap(map), this.makeDownMap(map)];
+    let wrongMap = [];
 
-    Console.print(`[${upMap.join("|")}]`);
-    Console.print(`[${downMap.join("|")}]`);
+    if (map[map.length - 1] === "U")
+      [...wrongMap] = this.makeUpWrongMap(upMap, downMap);
+    if (map[map.length - 1] === "D")
+      [...wrongMap] = this.makeUpWrongMap(upMap, downMap);
+
+    Console.print(`[${wrongMap[0].join("|")}]`);
+    Console.print(`[${wrongMap[1].join("|")}]\n`);
   },
 
   /**
@@ -32,7 +34,12 @@ const OutputView = {
    * <p>
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  printResult() {},
+  printResult(map, resultState, totalTrial) {
+    Console.print("\n최종 게임 결과");
+    this.printMap(map);
+    Console.print(`게임 성공 여부: ${resultState}`);
+    Console.print(`총 시도한 횟수: ${totalTrial}`);
+  },
 
   makeUpMap(map) {
     const upMap = [];
@@ -56,14 +63,19 @@ const OutputView = {
     return downMap;
   },
 
-  makeWrongMap(lastDirection, upMap, downMap) {
-    if (lastDirection === "U") {
-      upMap.pop();
-      upMap.push(" X ");
-      return [upMap, downMap];
-    }
+  makeUpWrongMap(upMap, downMap) {
     downMap.pop();
     downMap.push(" X ");
+    upMap.pop();
+    upMap.push("   ");
+    return [upMap, downMap];
+  },
+
+  makedownWrongMap(upMap, downMap) {
+    upMap.pop();
+    upMap.push(" X ");
+    downMap.pop();
+    downMap.push("   ");
     return [upMap, downMap];
   },
 };

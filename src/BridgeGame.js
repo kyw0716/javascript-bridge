@@ -6,6 +6,7 @@ const BridgeRandomNumberGenerator = require("./utils/BridgeRandomNumberGenerator
  */
 class BridgeGame {
   #currentPosition = 0;
+  #totalTrial = 1;
   #answer;
 
   constructor(size) {
@@ -30,10 +31,25 @@ class BridgeGame {
    * <p>
    * 재시작을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  retry() {}
+  retry() {
+    this.#currentPosition = 0;
+    this.#totalTrial++;
+  }
 
   getCurrentMovingCorrect(moving) {
     return moving === this.#answer[this.#currentPosition];
+  }
+
+  getCurrentMap() {
+    return this.#answer.filter((v, i) => i <= this.#currentPosition);
+  }
+
+  getIsLastPosition() {
+    return this.#answer.length - 1 === this.#currentPosition;
+  }
+
+  getTotalTrial() {
+    return this.#totalTrial;
   }
 }
 
