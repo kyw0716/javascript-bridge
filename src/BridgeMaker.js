@@ -13,8 +13,8 @@ const BridgeMaker = {
     for (let i = 0; i < size; i++) {
       const randomNumber = generateRandomNumber();
 
-      if (randomNumber === 0) answerBridge.push("D");
-      if (randomNumber === 1) answerBridge.push("U");
+      if (parseInt(randomNumber) === 0) answerBridge.push("D");
+      if (parseInt(randomNumber) === 1) answerBridge.push("U");
     }
 
     return answerBridge;
