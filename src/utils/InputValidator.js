@@ -1,15 +1,31 @@
+const {
+  StaticValue,
+  BridgeDirection,
+  RestartCommand,
+  ErrorMsg,
+} = require("../static/static");
+
 const InputValidator = {
   validateBridgeSize(input) {
-    if (input.replace(/\d/g, "").length > 0) throw new Error("[ERROR]");
-    if (parseInt(input) > 20 || parseInt(input) < 3) throw new Error("[ERROR]");
+    if (input.replace(/\d/g, "").length > 0)
+      throw new Error(ErrorMsg.INVALID_BRIDGE_SIZE_NOT_NUMBER);
+    if (
+      parseInt(input) > StaticValue.BRIDGE_RANGE_END ||
+      parseInt(input) < StaticValue.BRIDGE_RANGE_START
+    )
+      throw new Error(ErrorMsg.INVALID_BRIDGE_SIZE_RANGE_ERROR);
   },
+
   validateMoving(input) {
-    const movingCommand = ["U", "D"];
-    if (!movingCommand.includes(input)) throw new Error("[ERROR]");
+    const movingCommand = [BridgeDirection.UP, BridgeDirection.DOWN];
+    if (!movingCommand.includes(input))
+      throw new Error(ErrorMsg.INVALID_MOVING_ERROR);
   },
+
   validateRestart(input) {
-    const restartCommand = ["R", "Q"];
-    if (!restartCommand.includes(input)) throw new Error("[ERROR]");
+    const restartCommand = [RestartCommand.RESTART, RestartCommand.QUIT];
+    if (!restartCommand.includes(input))
+      throw new Error(ErrorMsg.INVALID_RESTART_COMMAND_ERROR);
   },
 };
 

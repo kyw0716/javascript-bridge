@@ -1,12 +1,13 @@
 const BridgeMaker = require("./BridgeMaker");
+const { StaticValue } = require("./static/static");
 const BridgeRandomNumberGenerator = require("./utils/BridgeRandomNumberGenerator");
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
 class BridgeGame {
-  #currentPosition = 0;
-  #totalTrial = 1;
+  #currentPosition = StaticValue.START_POSITION;
+  #totalTrial = StaticValue.FIRST_TRIAL_COUNT;
   #answer;
 
   constructor(size) {

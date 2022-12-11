@@ -1,4 +1,5 @@
 const BridgeGame = require("../BridgeGame");
+const { RestartCommand, ResultState } = require("../static/static");
 const InputView = require("../views/InputView");
 const OutputView = require("../views/OutputView");
 
@@ -27,17 +28,19 @@ class BridgeGameController {
 
   inputRestart() {
     InputView.readGameCommand((command) => {
-      if (command === "R") {
+      if (command === RestartCommand.RESTART) {
         this.#gameModel.retry();
         return this.inputMoving();
       }
-      if (command === "Q") return this.printResult("실패");
+      if (command === RestartCommand.QUIT)
+        return this.printResult(ResultState.GAME_FAILED);
     });
   }
 
   progressGame(moving) {
     if (this.#gameModel.getCurrentMovingCorrect(moving)) {
-      if (this.#gameModel.getIsLastPosition()) return this.printResult("성공");
+      if (this.#gameModel.getIsLastPosition())
+        return this.printResult(ResultState.GAME_SUCCESSED);
       this.#gameModel.move();
 
       return this.inputMoving();

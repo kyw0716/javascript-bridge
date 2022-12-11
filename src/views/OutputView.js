@@ -1,4 +1,5 @@
 const { Console } = require("@woowacourse/mission-utils");
+const { BridgeDirection, MoveState } = require("../static/static");
 /**
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
@@ -20,9 +21,9 @@ const OutputView = {
     const [upMap, downMap] = [this.makeUpMap(map), this.makeDownMap(map)];
     let wrongMap = [];
 
-    if (map[map.length - 1] === "U")
+    if (map[map.length - 1] === BridgeDirection.UP)
       [...wrongMap] = this.makeUpWrongMap(upMap, downMap);
-    if (map[map.length - 1] === "D")
+    if (map[map.length - 1] === BridgeDirection.DOWN)
       [...wrongMap] = this.makeUpWrongMap(upMap, downMap);
 
     Console.print(`[${wrongMap[0].join("|")}]`);
@@ -45,8 +46,8 @@ const OutputView = {
     const upMap = [];
 
     for (let i = 0; i < map.length; i++) {
-      if (map[i] === "U") upMap.push(" O ");
-      if (map[i] === "D") upMap.push("   ");
+      if (map[i] === BridgeDirection.UP) upMap.push(MoveState.SUCCESS);
+      if (map[i] === BridgeDirection.DOWN) upMap.push(MoveState.NOTHING);
     }
 
     return upMap;
@@ -56,8 +57,8 @@ const OutputView = {
     const downMap = [];
 
     for (let i = 0; i < map.length; i++) {
-      if (map[i] === "D") downMap.push(" O ");
-      if (map[i] === "U") downMap.push("   ");
+      if (map[i] === BridgeDirection.DOWN) downMap.push(MoveState.SUCCESS);
+      if (map[i] === BridgeDirection.UP) downMap.push(MoveState.NOTHING);
     }
 
     return downMap;
@@ -65,17 +66,17 @@ const OutputView = {
 
   makeUpWrongMap(upMap, downMap) {
     downMap.pop();
-    downMap.push(" X ");
+    downMap.push(MoveState.FAILED);
     upMap.pop();
-    upMap.push("   ");
+    upMap.push(MoveState.NOTHING);
     return [upMap, downMap];
   },
 
   makedownWrongMap(upMap, downMap) {
     upMap.pop();
-    upMap.push(" X ");
+    upMap.push(MoveState.FAILED);
     downMap.pop();
-    downMap.push("   ");
+    downMap.push(MoveState.NOTHING);
     return [upMap, downMap];
   },
 };

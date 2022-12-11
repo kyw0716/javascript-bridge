@@ -1,4 +1,5 @@
 const { Console } = require("@woowacourse/mission-utils");
+const { GuideMsg } = require("../static/static");
 const InputValidator = require("../utils/InputValidator");
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -10,7 +11,7 @@ const InputView = {
   readBridgeSize(callback) {
     try {
       this.getUserInput(
-        "다리의 길이를 입력해주세요.\n",
+        GuideMsg.INPUT_BRIDGE_SIZE,
         callback,
         InputValidator.validateBridgeSize
       );
@@ -26,7 +27,7 @@ const InputView = {
   readMoving(callback) {
     try {
       this.getUserInput(
-        "이동할 칸을 선택해주세요. (위: U, 아래: D)\n",
+        GuideMsg.INPUT_MOVING,
         callback,
         InputValidator.validateMoving
       );
@@ -42,7 +43,7 @@ const InputView = {
   readGameCommand(callback) {
     try {
       this.getUserInput(
-        "게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)\n",
+        GuideMsg.INPUT_RESTART,
         callback,
         InputValidator.validateRestart
       );
