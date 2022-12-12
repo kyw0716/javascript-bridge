@@ -1,3 +1,5 @@
+const { BridgeDirection } = require("./static/static");
+
 /**
  * 다리의 길이를 입력 받아서 다리를 생성해주는 역할을 한다.
  */
@@ -13,8 +15,11 @@ const BridgeMaker = {
     for (let i = 0; i < size; i++) {
       const randomNumber = generateRandomNumber();
 
-      if (parseInt(randomNumber) === 0) answerBridge.push("D");
-      if (parseInt(randomNumber) === 1) answerBridge.push("U");
+      if (parseInt(randomNumber)) {
+        answerBridge.push(BridgeDirection.UP);
+        continue;
+      }
+      answerBridge.push(BridgeDirection.DOWN);
     }
 
     return answerBridge;
