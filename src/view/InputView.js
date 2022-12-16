@@ -20,7 +20,13 @@ const InputView = {
   /**
    * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
    */
-  readGameCommand() {},
+  readGameCommand(callback) {
+    this.getUserInput(
+      GuideString.RECOMMEND_RESTART,
+      callback,
+      this.readGameCommand
+    );
+  },
 
   getUserInput(guide, callback, redirect) {
     Console.readLine(guide, (input) => {

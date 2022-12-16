@@ -1,5 +1,5 @@
 const BridgeGame = require("../BridgeGame");
-const { GuideString } = require("../static/Static");
+const { GuideString, StaticValue } = require("../static/Static");
 const InputView = require("../view/InputView");
 const OutputView = require("../view/OutputView");
 
@@ -24,12 +24,38 @@ class BridgeGameController {
   inputMoving() {
     InputView.readMoving((input) => {
       this.#bridgeGameModel.validateMoving(input);
-      if (this.#bridgeGameModel.getIsMovingCorrect(input)) {
-        this.#bridgeGameModel.move();
-        OutputView.printMap(this.#bridgeGameModel.getCurrentCrossState());
-      }
+
+      this.handleGameProcess(this.#bridgeGameModel.getIsMovingCorrect(input));
     });
   }
+
+  inputRestart() {
+    InputView.readGameCommand((input) => {
+      this.#bridgeGameModel.validateRestart(input);
+
+      this.handleRestart(input);
+    });
+  }
+
+  handleGameProcess(isMoveCorrect) {
+    if (isMoveCorrect) {
+      this.#bridgeGameModel.move();
+      OutputView.printMap(this.#bridgeGameModel.getCurrentCrossState());
+
+      return this.inputMoving();
+    }
+    return this.inputRestart();
+  }
+
+  handleRestart(input) {
+    if (input === StaticValue.RESTART) {
+      this.#bridgeGameModel.retry();
+      return this.inputMoving();
+    }
+    return this.handleGameEnd();
+  }
+
+  handleGameEnd() {}
 }
 
 module.exports = BridgeGameController;
