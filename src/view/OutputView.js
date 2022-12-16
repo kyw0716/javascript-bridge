@@ -1,5 +1,5 @@
 const { Console } = require("@woowacourse/mission-utils");
-const { StaticValue } = require("../static/Static");
+const { StaticValue, GuideString } = require("../static/Static");
 
 const OutputView = {
   /**
@@ -11,16 +11,16 @@ const OutputView = {
     const upMap = this.getUpMap(map);
     const downMap = this.getDownMap(map);
 
-    Console.print(`[${upMap.join("|")}]`);
-    Console.print(`[${downMap.join("|")}]\n`);
+    this.print(`[${upMap.join("|")}]`);
+    this.print(`[${downMap.join("|")}]\n`);
   },
 
   printWrongMap(map) {
     const upMap = this.getWrongUpMap(this.getUpMap(map), map);
     const downMap = this.getWrongDownMap(this.getDownMap(map), map);
 
-    Console.print(`[${upMap.join("|")}]`);
-    Console.print(`[${downMap.join("|")}]\n`);
+    this.print(`[${upMap.join("|")}]`);
+    this.print(`[${downMap.join("|")}]\n`);
   },
 
   /**
@@ -28,7 +28,23 @@ const OutputView = {
    * <p>
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  printResult() {},
+  printResult(status, map) {
+    this.print(GuideString.RESULT);
+
+    if (status) {
+      this.printMap(map);
+      this.print(GuideString.SUCCESS);
+    }
+    if (!status) {
+      this.printWrongMap(map);
+      this.print(GuideString.FAIL);
+    }
+  },
+
+  printTotalTrial(totalTrial) {
+    this.print(GuideString.TOTAL_TRIAL + `${totalTrial}`);
+    Console.close();
+  },
 
   print(string) {
     Console.print(string);

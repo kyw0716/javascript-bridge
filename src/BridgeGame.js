@@ -18,8 +18,6 @@ class BridgeGame {
       bridgeSize,
       BridgeRandomNumberGenerator.generate
     );
-
-    console.log(this.#answerBridge);
   }
 
   validateBridgeSize(input) {}
@@ -47,6 +45,10 @@ class BridgeGame {
 
   getCurrentCrossState() {
     return this.#answerBridge.slice(0, this.#currentPosition);
+  }
+
+  getIsLast() {
+    return this.#currentPosition === this.#answerBridge.length;
   }
 }
 

@@ -40,14 +40,14 @@ class BridgeGameController {
   handleGameProcess(isMoveCorrect) {
     this.#bridgeGameModel.move();
 
-    if (isMoveCorrect) {
-      OutputView.printMap(this.#bridgeGameModel.getCurrentCrossState());
-
-      return this.inputMoving();
+    if (!isMoveCorrect) {
+      OutputView.printWrongMap(this.#bridgeGameModel.getCurrentCrossState());
+      return this.inputRestart();
     }
+    if (this.#bridgeGameModel.getIsLast()) return this.handleGameEnd(true);
 
-    OutputView.printWrongMap(this.#bridgeGameModel.getCurrentCrossState());
-    return this.inputRestart();
+    OutputView.printMap(this.#bridgeGameModel.getCurrentCrossState());
+    return this.inputMoving();
   }
 
   handleRestart(input) {
@@ -55,10 +55,16 @@ class BridgeGameController {
       this.#bridgeGameModel.retry();
       return this.inputMoving();
     }
-    return this.handleGameEnd();
+    return this.handleGameEnd(false);
   }
 
-  handleGameEnd() {}
+  handleGameEnd(status) {
+    OutputView.printResult(
+      status,
+      this.#bridgeGameModel.getCurrentCrossState()
+    );
+    OutputView.printTotalTrial(this.#bridgeGameModel.getTotalTrial());
+  }
 }
 
 module.exports = BridgeGameController;
