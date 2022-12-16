@@ -38,12 +38,15 @@ class BridgeGameController {
   }
 
   handleGameProcess(isMoveCorrect) {
+    this.#bridgeGameModel.move();
+
     if (isMoveCorrect) {
-      this.#bridgeGameModel.move();
       OutputView.printMap(this.#bridgeGameModel.getCurrentCrossState());
 
       return this.inputMoving();
     }
+
+    OutputView.printWrongMap(this.#bridgeGameModel.getCurrentCrossState());
     return this.inputRestart();
   }
 

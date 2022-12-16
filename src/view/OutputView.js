@@ -12,7 +12,15 @@ const OutputView = {
     const downMap = this.getDownMap(map);
 
     Console.print(`[${upMap.join("|")}]`);
-    Console.print(`[${downMap.join("|")}]`);
+    Console.print(`[${downMap.join("|")}]\n`);
+  },
+
+  printWrongMap(map) {
+    const upMap = this.getWrongUpMap(this.getUpMap(map), map);
+    const downMap = this.getWrongDownMap(this.getDownMap(map), map);
+
+    Console.print(`[${upMap.join("|")}]`);
+    Console.print(`[${downMap.join("|")}]\n`);
   },
 
   /**
@@ -47,6 +55,30 @@ const OutputView = {
     }
 
     return downMap;
+  },
+
+  getWrongUpMap(upMap, map) {
+    const wrongUpMap = upMap.filter((v, i) => i !== upMap.length - 1);
+
+    if (map[map.length - 1] === StaticValue.UP_BRIDGE) {
+      wrongUpMap.push(StaticValue.EMPTY_MAP);
+      return wrongUpMap;
+    }
+
+    wrongUpMap.push(StaticValue.WRONG_MAP);
+    return wrongUpMap;
+  },
+
+  getWrongDownMap(downMap, map) {
+    const wrongDownMap = downMap.filter((v, i) => i !== downMap.length - 1);
+
+    if (map[map.length - 1] === StaticValue.UP_BRIDGE) {
+      wrongDownMap.push(StaticValue.WRONG_MAP);
+      return wrongDownMap;
+    }
+
+    wrongDownMap.push(StaticValue.EMPTY_MAP);
+    return wrongDownMap;
   },
 };
 
