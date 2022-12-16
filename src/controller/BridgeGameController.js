@@ -19,6 +19,10 @@ class BridgeGameController {
       this.#bridgeGameModel = new BridgeGame(input);
     });
   }
+
+  inputMoving() {
+    InputView.readMoving();
+  }
 }
 
 module.exports = BridgeGameController;
