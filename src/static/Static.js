@@ -1,6 +1,9 @@
 const StaticValue = Object.freeze({
   UP_BRIDGE: "U",
   DOWN_BRIDGE: "D",
+  CORRECT_MAP: " O ",
+  WRONG_MAP: " X ",
+  EMPTY_MAP: "   ",
   CURRENT_POSITION_INIT_VALUE: 0,
   TOTAL_TRIAL_INIT_VALUE: 1,
 });

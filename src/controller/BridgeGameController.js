@@ -17,6 +17,7 @@ class BridgeGameController {
   inputBridgeSize() {
     InputView.readBridgeSize((input) => {
       this.#bridgeGameModel = new BridgeGame(input);
+      this.inputMoving();
     });
   }
 
@@ -25,6 +26,7 @@ class BridgeGameController {
       this.#bridgeGameModel.validateMoving(input);
       if (this.#bridgeGameModel.getIsMovingCorrect(input)) {
         this.#bridgeGameModel.move();
+        OutputView.printMap(this.#bridgeGameModel.getCurrentCrossState());
       }
     });
   }
