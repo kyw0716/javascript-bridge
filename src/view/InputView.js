@@ -7,14 +7,22 @@ const InputView = {
    * 다리의 길이를 입력받는다.
    */
   readBridgeSize(callback) {
-    this.getUserInput(GuideString.BRIDGE_SIZE, callback, this.readBridgeSize);
+    this.getUserInput(
+      GuideString.BRIDGE_SIZE,
+      callback,
+      this.readBridgeSize.bind(this)
+    );
   },
 
   /**
    * 사용자가 이동할 칸을 입력받는다.
    */
   readMoving(callback) {
-    this.getUserInput(GuideString.MOVE_DIRECTION, callback, this.readMoving);
+    this.getUserInput(
+      GuideString.MOVE_DIRECTION,
+      callback,
+      this.readMoving.bind(this)
+    );
   },
 
   /**
@@ -24,7 +32,7 @@ const InputView = {
     this.getUserInput(
       GuideString.RECOMMEND_RESTART,
       callback,
-      this.readGameCommand
+      this.readGameCommand.bind(this)
     );
   },
 
@@ -34,7 +42,7 @@ const InputView = {
         callback(input);
       } catch (error) {
         OutputView.print(error);
-        redirect();
+        redirect(callback);
       }
     });
   },

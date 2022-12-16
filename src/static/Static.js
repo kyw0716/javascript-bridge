@@ -8,6 +8,8 @@ const StaticValue = Object.freeze({
   EMPTY_MAP: "   ",
   CURRENT_POSITION_INIT_VALUE: 0,
   TOTAL_TRIAL_INIT_VALUE: 1,
+  BRIDGE_RANGE_START: 3,
+  BRIDGE_RANGE_END: 20,
 });
 
 const GuideString = Object.freeze({
@@ -22,4 +24,12 @@ const GuideString = Object.freeze({
   TOTAL_TRIAL: "총 시도한 횟수: ",
 });
 
-module.exports = { StaticValue, GuideString };
+const ErrorString = Object.freeze({
+  EMPTY_INPUT: "[ERROR] 입력값이 없습니다.",
+  BRIDGE_SIZE_NOT_NUMBER: "[ERROR] 다리 길이는 숫자만 입력 가능합니다.",
+  BRIDGE_SIZE_RANGE: "[ERROR] 다리 길이는 3 - 20 범위를 벗어날 수 없습니다.",
+  MOVING: "[ERROR] 이동할 칸은 U, D로만 입력 가능합니다.",
+  RESTART: "[ERROR] 재시작 여부는 R, Q로만 입력 가능합니다.",
+});
+
+module.exports = { StaticValue, GuideString, ErrorString };
