@@ -21,7 +21,12 @@ class BridgeGameController {
   }
 
   inputMoving() {
-    InputView.readMoving();
+    InputView.readMoving((input) => {
+      this.#bridgeGameModel.validateMoving(input);
+      if (this.#bridgeGameModel.getIsMovingCorrect(input)) {
+        this.#bridgeGameModel.move();
+      }
+    });
   }
 }
 

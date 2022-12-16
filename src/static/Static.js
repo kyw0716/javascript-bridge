@@ -1,6 +1,8 @@
 const StaticValue = Object.freeze({
   UP_BRIDGE: "U",
   DOWN_BRIDGE: "D",
+  CURRENT_POSITION_INIT_VALUE: 0,
+  TOTAL_TRIAL_INIT_VALUE: 1,
 });
 
 const GuideString = Object.freeze({
